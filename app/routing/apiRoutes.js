@@ -49,14 +49,14 @@ module.exports = function(app){
 
 	app.post('/api/friends', function(req, res){
 
-		// Note the code here. Our "server" will respond to a user's survey result
-		// Then compare those results against every user in the database.
+		// Note the code here. The server will respond to a user's survey result
+		// Then compare those results against every user in the friends array.
 		// It will then calculate the difference between each of the numbers and the user's numbers.
 		// It will then choose the user with the least differences as the "best friend match."
 		// In the case of multiple users with the same result it will choose the first match.
-		// After the test, it will push the user to the database. 
+		// After the test, it will push the user to the friends array 
 
-		// We will use this object to hold the "best match". We will constantly update it as we 
+		// use this object below to hold the "best match".This is be updated it as we 
 		// loop through all of the options 
 		var bestMatch = {
 			name: "",
@@ -70,20 +70,20 @@ module.exports = function(app){
 		var userPhoto 	= userData.photo;
 		var userScores 	= userData.scores;
 
-		// This variable will calculate the difference between the user's scores and the scores of
+		// This variable will hold the difference between the user's scores and the scores of
 		// each user in the database
 		var totalDifference = 0;
 
-		// Here we loop through all the friend possibilities in the database. 
+		// Here we loop through all the friend possibilities in the friends array. 
 		for  (var i=0; i< friends.length; i++) {
 
 			console.log(friends[i].name);
 			totalDifference = 0;
 
-			// We then loop through all the scores of each friend
+			// then loop through all the scores of each friend
 			for (var j=0; j< friends[i].scores[j]; j++){
 
-				// We calculate the difference between the scores and sum them into the totalDifference
+				// calculate the difference between the scores and sum them into the totalDifference
 				totalDifference += Math.abs(parseInt(userScores[j]) - parseInt(friends[i].scores[j]));
 
 				// If the sum of differences is less then the differences of the current "best match"
